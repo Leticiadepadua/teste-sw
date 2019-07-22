@@ -2,11 +2,9 @@ package com.swapi.sw.planeta;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,11 +15,19 @@ public class PlanetaController  {
     private PlanetaRepository planetaRepository;
 
     @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/planetas")
+    public Planeta criarPlaneta(@Valid @RequestBody Planeta planeta) {
+        return planetaRepository.save(planeta);
+    }
+
     @GetMapping ("/planetas")
     public List<Planeta> listarPlanetas(){
         return planetaRepository.findAll();
 
     }
-
+    @DeleteMapping ("/planetas/{id}")
+    public void deletarPlaneta (@PathVariable Long id) {
+        planetaRepository.deleteById(id);
+    }
 
 }
