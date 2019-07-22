@@ -25,6 +25,11 @@ public class PlanetaController  {
         return planetaRepository.findAll();
 
     }
+
+    @PatchMapping ("/planetas/atualiza/{id}")
+    public void atualizaNome(@PathVariable Long id, @RequestParam String nome) {
+        planetaRepository.atualizaNome(nome, id);
+    }
     @DeleteMapping ("/planetas/{id}")
     public void deletarPlaneta (@PathVariable Long id) {
         planetaRepository.deleteById(id);
